@@ -33,9 +33,9 @@ router.get('/dashboard', function (req, res, next) {
  * @param {res} response
  */
 function renderDashboard(req,res){
-  const { _raw, _json, ...userProfile } = req.user;
+  //const { _raw, _json, ...userProfile } = req.user;
   res.render('dashboard', {
-    userProfile: JSON.stringify(userProfile, null, 2),
+    userProfile: JSON.stringify(req.user, null, 2),
     title: 'Dashboard',
     layout: 'dashboard'
   });
