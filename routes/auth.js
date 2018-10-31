@@ -1,6 +1,21 @@
+/***********************************
+ * index route
+ ************************************/
+/***********************************
+ * Module dependencies.
+ * @private
+ ************************************/
 var express = require('express');
 var router = express.Router();
 var passport = require('passport');
+
+/***********************************
+ * Private functions
+ ************************************/
+
+/***********************************
+ * routes functions
+ ************************************/
 
 // Perform the login, after login Auth0 will redirect to callback
 router.get('/login', passport.authenticate('auth0', {
@@ -18,7 +33,7 @@ router.get('/callback', function (req, res, next) {
       if (err) { return next(err); }
       const returnTo = req.session.returnTo;
       delete req.session.returnTo;
-      res.redirect(returnTo || '/user');
+      res.redirect(returnTo || '/dashboard');
     });
   })(req, res, next);
 });

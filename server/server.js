@@ -15,6 +15,7 @@ var flash = require('connect-flash');
 var userInViews = require('./lib/middleware/userInViews');
 var authRouter = require('../routes/auth');
 var indexRouter = require('../routes/index');
+var dashboardRouter = require('../routes/dashboard');
 
 dotenv.load();
 
@@ -127,6 +128,7 @@ app.use(function (req, res, next) {
 app.use(userInViews());
 app.use('/', authRouter);
 app.use('/', indexRouter);
+app.use('/', dashboardRouter);
 
 /***********************************
  * Error handling
