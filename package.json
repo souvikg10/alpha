@@ -1,0 +1,49 @@
+{
+  "name": "alpha.datavillage.me",
+  "version": "0.0.1",
+  "description": "Profitez de vos données personnelles",
+  "main": "server/server.js",
+  "scripts": {
+    "start": "node server/server.js"
+  },
+  "dependencies": {
+    "body-parser": "^1.15.1",
+    "cookie-parser": "^1.3.5",
+    "cors": "^2.8.1",
+    "dotenv": "^2.0.0",
+    "express": "^4.13.4",
+    "express-handlebars": "^3.0.0",
+    "express-session": "^1.2.1",
+    "express-validator": "^2.20.4",
+    "express-winston-middleware": "^0.1.0",
+    "winston": "^2.2.0",
+    "connect-flash": "^0.1.1",
+    "debug": "~2.6.9",
+    "http-errors": "~1.6.2",
+    "morgan": "~1.9.0",
+    "passport": "^0.4.0",
+    "passport-auth0": "^1.0.0"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-clean-css": "^2.3.2",
+    "gulp-jshint": "^2.0.4",
+    "gulp-sass": "^3.0.0",
+    "gulp-sourcemaps": "^1.9.1",
+    "jshint": "^2.9.4",
+    "run-sequence": "^1.2.2"
+  },
+  "engines": {
+    "node": "8.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/datavillage-me/alpha"
+  },
+  "keywords": [
+    "node",
+    "data",
+    "webapp"
+  ],
+  "author": "developer@datavillage.me"
+}
