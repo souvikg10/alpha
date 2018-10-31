@@ -86,7 +86,7 @@ app.engine('handlebars', exphbs({
 /***********************************
  * Set up app properties & engine
  ************************************/
-var sess = {
+ var sess = {
   secret: process.env.SESSION_SECRET,
   cookie: {},
   resave: false,
@@ -94,7 +94,7 @@ var sess = {
 };
 
 if (app.get('env') === 'production') {
-  sess.cookie.secure = true; // serve secure cookies, requires https
+  //sess.cookie.secure = true; // serve secure cookies, requires https
 }
 
 app.use(session(sess));
