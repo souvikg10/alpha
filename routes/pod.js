@@ -17,7 +17,7 @@ var GoogleDriveStrategy = require('passport-google-drive').Strategy;
 /***********************************
  * routes functions
  ************************************/
-router.get('/auth/pod/google-drive', function (req, res, next) {
+router.get('/auth/pod/drive', function (req, res, next) {
   passport.use(new GoogleDriveStrategy({
     clientID: process.env.DRIVE_CLIENT_ID,
     clientSecret: process.env.DRIVE_CLIENT_SECRET,
@@ -35,11 +35,11 @@ router.get('/auth/pod/google-drive', function (req, res, next) {
   }
   ));
 
-  res.redirect('/auth/pod/google-drive/login');
+  res.redirect('/auth/pod/drive/login');
   
 });
 
-router.get('/auth/pod/google-drive/login',
+router.get('/auth/pod/drive/login',
   passport.authenticate('google-drive',{
     scope: 'https://www.googleapis.com/auth/drive'
   }),
@@ -48,7 +48,7 @@ router.get('/auth/pod/google-drive/login',
     // function will not be called.
   });
 
-  router.get('/auth/pod/google-drive/callback', 
+  router.get('/auth/pod/drive/callback', 
   passport.authenticate('google-drive', { failureRedirect: '/dashboard' }),
   function (req, res) {
     res.redirect('/dashboard');
