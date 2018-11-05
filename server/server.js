@@ -16,7 +16,7 @@ var userInViews = require('./lib/middleware/userInViews');
 var authRouter = require('../routes/auth');
 var indexRouter = require('../routes/index');
 var dashboardRouter = require('../routes/dashboard');
-var podRouter = require('../routes/pod');
+var connectorRouter = require('../routes/connector');
 
 dotenv.load();
 
@@ -130,7 +130,7 @@ app.use(userInViews());
 app.use('/', authRouter);
 app.use('/', indexRouter);
 app.use('/', dashboardRouter);
-app.use('/', podRouter);
+app.use('/', connectorRouter);
 
 /***********************************
  * Error handling

@@ -22,46 +22,53 @@
           <div class="card card-login">
             <form onsubmit="return false;" method="post">
               <div class="card-header card-header-primary text-center">
-                <h4 class="card-title">Login</h4>
+                <h4 class="card-title">Se connecter</h4>
                 <div class="social-line">
-                  <a href="#pablo" class="btn btn-just-icon btn-link">
-                    <i class="fa fa-facebook-square"></i>
+                  <a href="#pablo" id="btn-google" class="btn btn-just-icon btn-link">
+                    <i class="fa fa-google"></i>
                   </a>
-                  <a href="#pablo" class="btn btn-just-icon btn-link">
-                    <i class="fa fa-google-plus"></i>
+                  <a href="#pablo" id="btn-microsoft" class="btn btn-just-icon btn-link">
+                    <i class="fa fa-windows"></i>
                   </a>
                 </div>
               </div>
               <div id="error-message" class="alert"></div>
-              <p class="description text-center">Ou utilisez votre email</p>
+              <p class="description text-center">Permière connection?</p>
               <div class="card-body">
-                <div class="input-group">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text">
-                      <i class="material-icons">mail</i>
-                    </span>
-                  </div>
-                  <input
-                    type="email"
-                    class="form-control"
-                    id="email"
-                    placeholder="Email">
+                <div class="form-check">
+                    <label class="form-check-label">
+                        <input class="form-check-input" type="radio" name="podRadios" id="podRadiosGoogle" value="google" checked> Google drive 
+                        <span class="circle">
+                          <span class="check"></span>
+                        </span>
+                    </label>
+                </div>
+                <div class="form-check">
+                    <label class="form-check-label">
+                        <input class="form-check-input" type="radio" name="podRadios" id="podRadiosMicrosoft" value="microsoft"> Microsoft One drive
+                        <span class="circle">
+                        <span class="check"></span>
+                        </span>
+                    </label>
+                </div>
+                <div class="form-check disabled">
+                    <label class="form-check-label">
+                        <input class="form-check-input" type="radio" name="podRadios" id="podRadiosDropbox" value="dropbox" disabled> Dropbox
+                        <span class="circle">
+                        <span class="check"></span>
+                        </span>
+                    </label>
+                </div>
+                <div class="form-check disabled">
+                    <label class="form-check-label">
+                        <input class="form-check-input" type="radio" name="podRadios" id="podRadiosSolid" value="solid" disabled> Solid
+                        <span class="circle">
+                        <span class="check"></span>
+                        </span>
+                    </label>
                 </div>
                 <div class="input-group">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text">
-                      <i class="material-icons">lock_outline</i>
-                    </span>
-                  </div>
-                  <input
-                    type="password"
-                    class="form-control"
-                    id="password"
-                    placeholder="Mot de passer">
-                </div>
-                <div class="input-group">
-                      <button type="submit" id="btn-login" class="btn btn-primary btn-block">Se connecter</button>
-                      <button type="submit" id="btn-signup" class="btn btn-primary btn-block">S'inscrire</button>
+                      <button type="submit" id="btn-signup" class="btn btn-primary btn-block">Activer mon Pod</button>
                 </div>
                 </div>
               </div>
@@ -139,18 +146,28 @@
         });
       }
 
+      function loginWithMicrosoft() {
+        webAuth.authorize({
+          connection: 'windowslive'
+        }, function(err) {
+          if (err) displayError(err);
+        });
+      }
+
       function displayError(err) {
         var errorMessage = document.getElementById('error-message');
         errorMessage.innerHTML = err.description;
         errorMessage.style.display = 'block';
       }
 
-      document.getElementById('btn-login').addEventListener('click', login);
-      document.getElementById('btn-signup').addEventListener('click', signup);
+      document.getElementById('btn-signup').addEventListener('click', loginWithGoogle);
+      document.getElementById('podRadiosGoogle').addEventListener('click', document.getElementById('btn-signup').addEventListener('click', loginWithGoogle));
+      document.getElementById('podRadiosMicrosoft').addEventListener('click', document.getElementById('btn-signup').addEventListener('click', loginWithMicrosoft));
+      document.getElementById('btn-google').addEventListener('click', loginWithGoogle);
+      document.getElementById('btn-microsoft').addEventListener('click', loginWithMicrosoft);
     });
   </script>
 </body>
-
 </html>
 
 
