@@ -72,4 +72,7 @@
 
 .brand-sub-filter:after{
     background: $brand-sub;
+    background: linear-gradient(45deg, $brand-sub 0%, $brand-sub 100%);
+    background: -moz-linear-gradient(135deg, $brand-sub 0%,$brand-sub 100%);
+    background: -webkit-linear-gradient(135deg, $brand-sub 0%, $brand-sub 100%);
   }
