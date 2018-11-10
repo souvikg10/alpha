@@ -27,7 +27,7 @@ router.get('/login', passport.authenticate('auth0', {
 // Perform the final stage of authentication and redirect to previously requested URL or '/user'
 router.get('/callback', function (req, res, next) {
   passport.authenticate('auth0', function (err, user, info) {
-    if (info=="unauthorized") {  return res.redirect('/activateEmail'); }
+    if (info=="unauthorized") {  return res.redirect('/'); }
     if (err) {  return next(err); }
     if (!user) { return res.redirect('/'); }
     req.logIn(user, function (err) {
@@ -39,10 +39,6 @@ router.get('/callback', function (req, res, next) {
   })(req, res, next);
 });
 
-// email needs to be activatedxs
-router.get('/activateEmail', function (req, res, next) {
-  renderActivateEmail(req,res);
-});
 
 // Perform session logout and redirect to homepage
 router.get('/logout', (req, res) => {
@@ -54,18 +50,6 @@ router.get('/logout', (req, res) => {
 /***********************************
  * rendering functions
  ************************************/
-
-/**
- * render activateEmail
- * @param {req} request
- * @param {res} response
- */
-function renderActivateEmail(req,res){
-  res.render('activateEmail', {
-    title: 'Activate email',
-    layout: 'singlePage'
-  });
-}
 
 
 module.exports = router;

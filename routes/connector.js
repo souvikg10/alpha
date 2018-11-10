@@ -1,6 +1,7 @@
 /***********************************
- * connectro routes
+ * connector routes
  ************************************/
+
 /***********************************
  * Module dependencies.
  * @private
@@ -9,6 +10,7 @@ var express = require('express');
 var router = express.Router();
 var passport = require('passport');
 var StravaStrategy = require('passport-strava').Strategy;
+var StravaImporter = require('../server/lib/importers/strava');
 
 /***********************************
  * Private functions
@@ -26,17 +28,13 @@ router.get('/auth/connector/strava', function (req, res, next) {
   function (accessToken, refreshToken, profile, done) {
     // asynchronous verification, for effect...
     process.nextTick(function () {
-      console.log(JSON.stringify(req.user, null, 2));
-      var user            = req.user; 
+      var user  = req.user; 
       user.strava={ accessToken : accessToken, refreshToken: refreshToken };
-     return done(null, user);
-
+      return done(null, user);
     });
   }
   ));
-
   res.redirect('/auth/connector/strava/login');
-  
 });
 
 router.get('/auth/connector/strava/login',
@@ -49,6 +47,8 @@ router.get('/auth/connector/strava/login',
   router.get('/auth/connector/strava/callback', 
   passport.authenticate('strava', { failureRedirect: '/dashboard' }),
   function (req, res) {
+    //import strava data
+    StravaImporter.importData(req.user);
     res.redirect('/dashboard');
   });
 

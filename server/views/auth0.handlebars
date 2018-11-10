@@ -12,40 +12,50 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
   <!-- CSS Files -->
   <link href="https://alpha-datavillage.herokuapp.com/css/material-kit.css?v=2.0.4" rel="stylesheet" />
+   <link href="http://www.datavillage.me/css/style.css" rel="stylesheet" />
+  <link href="http://www.datavillage.me/css/plugins.css" rel="stylesheet" />
+   
+
 </head>
 
 <body class="login-page sidebar-collapse">
-  <div class="page-header header-filter" style="background-image: url('https://source.unsplash.com/McIrFk1i5eg/1600x900'); background-size: cover; background-position: top center;">
+  <div class="page-header header-filter clear-filter brand-sub-filter" data-scroll-index="0" data-overlay-color="7" style="background-image: url('https://source.unsplash.com/McIrFk1i5eg/1600x900'); background-size: cover; background-position: top center;" style="background: rgba(2,230,0,.5);"> 
     <div class="container">
       <div class="row">
         <div class="col-lg-4 col-md-6 ml-auto mr-auto">
           <div class="card card-login">
             <form onsubmit="return false;" method="post">
               <div class="card-header card-header-primary text-center">
-                <h4 class="card-title">Se connecter</h4>
+                <h4 class="card-title">Connect</h4>
                 <div class="social-line">
-                  <a href="#pablo" id="btn-google" class="btn btn-just-icon btn-link">
-                    <i class="fa fa-google"></i>
-                  </a>
-                  <a href="#pablo" id="btn-microsoft" class="btn btn-just-icon btn-link">
-                    <i class="fa fa-windows"></i>
-                  </a>
+                  <a href="#pablo" id="btn-dropbox" class="btn btn-just-icon btn-link">
+                    <i class="fa fa-dropbox" style="font-size:36px"></i>
+                  </a>  
+                  with dropbox  
                 </div>
               </div>
               <div id="error-message" class="alert"></div>
-              <p class="description text-center">Permière connection?</p>
+              <p class="description text-center">First connection?</p>
               <div class="card-body">
                 <div class="form-check">
                     <label class="form-check-label">
-                        <input class="form-check-input" type="radio" name="podRadios" id="podRadiosGoogle" value="google" checked> Google drive 
+                        <input class="form-check-input" type="radio" name="podRadios" id="podRadiosDropbox" value="dropbox" checked> Dropbox
+                        <span class="circle">
+                        <span class="check"></span>
+                        </span>
+                    </label>
+                </div>
+                <div class="form-check disabled">
+                    <label class="form-check-label">
+                        <input class="form-check-input" type="radio" name="podRadios" id="podRadiosGoogle" value="google" disabled> Google drive (soon)
                         <span class="circle">
                           <span class="check"></span>
                         </span>
                     </label>
                 </div>
-                <div class="form-check">
+                <div class="form-check disabled">
                     <label class="form-check-label">
-                        <input class="form-check-input" type="radio" name="podRadios" id="podRadiosMicrosoft" value="microsoft"> Microsoft One drive
+                        <input class="form-check-input" type="radio" name="podRadios" id="podRadiosMicrosoft" value="microsoft" disabled> Microsoft One drive (soon)
                         <span class="circle">
                         <span class="check"></span>
                         </span>
@@ -53,22 +63,14 @@
                 </div>
                 <div class="form-check disabled">
                     <label class="form-check-label">
-                        <input class="form-check-input" type="radio" name="podRadios" id="podRadiosDropbox" value="dropbox" disabled> Dropbox
-                        <span class="circle">
-                        <span class="check"></span>
-                        </span>
-                    </label>
-                </div>
-                <div class="form-check disabled">
-                    <label class="form-check-label">
-                        <input class="form-check-input" type="radio" name="podRadios" id="podRadiosSolid" value="solid" disabled> Solid
+                        <input class="form-check-input" type="radio" name="podRadios" id="podRadiosSolid" value="solid" disabled> Solid (soon)
                         <span class="circle">
                         <span class="check"></span>
                         </span>
                     </label>
                 </div>
                 <div class="input-group">
-                      <button type="submit" id="btn-signup" class="btn btn-primary btn-block">Activer mon Pod</button>
+                      <button type="submit" id="btn-signup" class="btn btn-primary btn-block">Activate my Pod</button>
                 </div>
                 </div>
               </div>
@@ -112,18 +114,6 @@
 
       var databaseConnection = 'Username-Password-Authentication';
 
-      function login(e) {
-        e.preventDefault();
-        var username = document.getElementById('email').value;
-        var password = document.getElementById('password').value;
-        webAuth.login({
-          realm: databaseConnection,
-          username: username,
-          password: password
-        }, function(err) {
-          if (err) displayError(err);
-        });
-      }
 
       function signup() {
         var email = document.getElementById('email').value;
@@ -154,17 +144,22 @@
         });
       }
 
+      function loginWithDropbox() {
+        webAuth.authorize({
+          connection: 'dropbox'
+        }, function(err) {
+          if (err) displayError(err);
+        });
+      }
+
       function displayError(err) {
         var errorMessage = document.getElementById('error-message');
         errorMessage.innerHTML = err.description;
         errorMessage.style.display = 'block';
       }
 
-      document.getElementById('btn-signup').addEventListener('click', loginWithGoogle);
-      document.getElementById('podRadiosGoogle').addEventListener('click', document.getElementById('btn-signup').addEventListener('click', loginWithGoogle));
-      document.getElementById('podRadiosMicrosoft').addEventListener('click', document.getElementById('btn-signup').addEventListener('click', loginWithMicrosoft));
-      document.getElementById('btn-google').addEventListener('click', loginWithGoogle);
-      document.getElementById('btn-microsoft').addEventListener('click', loginWithMicrosoft);
+      document.getElementById('btn-signup').addEventListener('click', loginWithDropbox);
+      document.getElementById('btn-dropbox').addEventListener('click', loginWithDropbox);
     });
   </script>
 </body>

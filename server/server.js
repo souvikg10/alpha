@@ -1,22 +1,23 @@
 /***********************************
  * Module dependencies. 
  ************************************/
-var express = require('express');
-var path = require('path');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var exphbs = require('express-handlebars');
-var session = require('express-session');
-var dotenv = require('dotenv');
-var Logger = require('./lib/logger');
-var passport = require('passport');
-var Auth0Strategy = require('passport-auth0');
-var flash = require('connect-flash');
-var userInViews = require('./lib/middleware/userInViews');
-var authRouter = require('../routes/auth');
-var indexRouter = require('../routes/index');
-var dashboardRouter = require('../routes/dashboard');
-var connectorRouter = require('../routes/connector');
+import express from 'express';
+import path from 'path';
+import cookieParser from 'cookie-parser';
+import exphbs from 'express-handlebars';
+import session from 'express-session';
+import dotenv from 'dotenv';
+import Logger from './lib/logger';
+import passport from 'passport';
+import Auth0Strategy from 'passport-auth0';
+import flash from 'connect-flash';
+import userInViews from './lib/middleware/userInViews';
+import authRouter from '../routes/auth';
+import indexRouter from '../routes/index';
+import dashboardRouter from '../routes/dashboard';
+import connectorRouter from '../routes/connector';
+import Auth0 from '../server/lib/auth0';
+import DropBoxPod from '../server/lib/models/dropbox-pod';
 
 dotenv.load();
 
@@ -34,7 +35,13 @@ var strategy = new Auth0Strategy(
     // accessToken is the token to call Auth0 API (not needed in the most cases)
     // extraParams.id_token has the JSON Web Token
     // profile has all the information from the user
-    return done(null, profile);
+
+    //load auth0 user extra data in the user session
+   Auth0.loadSocialLoginAccessToken(profile,function (profile) {
+     var pod=new DropBoxPod(profile.pod.accessToken);
+     profile.pod=pod;
+      return done(null, profile);
+    });
   }
 );
 
