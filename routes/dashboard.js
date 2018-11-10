@@ -37,7 +37,8 @@ function renderDashboard(req,res){
   res.render('dashboard', {
     userProfile: JSON.stringify(req.user, null, 2),
     title: 'Dashboard',
-    layout: 'dashboard'
+    layout: 'dashboard',
+    dashboard:'active'
   });
 }
 
