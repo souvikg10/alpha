@@ -15,7 +15,9 @@ import Sequelize from 'sequelize';
  //connect database
 function _connect(){
     return  new Sequelize(process.env.DATABASE_NAME, process.env.DATABASE_USER, process.env.DATABASE_PASSWORD, {
-        dialect: 'postgres'
+        dialect: 'postgres',
+        host: process.env.DATABASE_HOST,
+        port: process.env.DATABASE_PORT,
       });
   
 } 
