@@ -1,0 +1,28 @@
+          <div class="card">
+            <div class="card-header card-header-primary">
+              <h3 class="card-title">Checkout your consents timeline</h3>
+              <p class="card-category">Monitor and review all the consents you gave or revoked to connect data source on the platform or to accept offers for your data</p>
+            </div>
+            <div class="card-body">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12 col-lg-12">
+                            <div id="tracking-pre"></div>
+                            <div id="tracking">
+                                <div class="tracking-list">
+                                {{#each userConsents as |item|}}
+                                <div class="tracking-item">
+                                    <div class="tracking-icon consent-{{item.type}}">
+                                        <i class="{{consentLogo item.type}}"></i>
+                                    </div>
+                                    <div class="tracking-date">{{formatDate item.timestamp "dd/mm/yyyy"}}<span>at {{formatDate item.timestamp "HH:MM:ss"}}</span></div>
+                                    <div class="tracking-content">{{consentType item.type item.consent}}<span>{{consentData item.user_id item.hash}}</span></div>
+                                </div>
+                                {{/each}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          </div>

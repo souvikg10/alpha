@@ -9425,6 +9425,10 @@ fieldset[disabled] .form-group .form-control {
     box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(233, 30, 99, 0.4); }
     .alert.alert-rose i {
       color: #e91e63; }
+  .alert.alert-white {
+    box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(255, 255, 255, 0.4); }
+    .alert.alert-white i {
+      color: #FFF; }
   .alert.alert-with-icon {
     padding-left: 66px; }
     .alert.alert-with-icon i[data-notify="icon"] {
@@ -11540,7 +11544,7 @@ label {
   .card .card-header-primary:not(.card-header-icon):not(.card-header-text), .card.bg-primary,
   .card.card-rotate.bg-primary .front,
   .card.card-rotate.bg-primary .back {
-    background: linear-gradient(60deg, #ab47bc, #8e24aa); }
+    background: linear-gradient(60deg, #63c7d4, #79d0dc); }
   .card .card-header-info .card-icon,
   .card .card-header-info .card-text,
   .card .card-header-info:not(.card-header-icon):not(.card-header-text), .card.bg-info,

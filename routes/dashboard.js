@@ -5,8 +5,11 @@
  * Module dependencies.
  * @private
  ************************************/
-var express = require('express');
-var secured = require('../server/lib/middleware/secured');
+import express from 'express';
+import secured from '../server/lib/middleware/secured';
+import passport from 'passport';
+import User from '../server/lib/utils/user';
+
 var router = express.Router();
 
 /***********************************
@@ -18,7 +21,7 @@ var router = express.Router();
  ************************************/
 
 /* GET dashboard home */
-router.get('/dashboard', function (req, res, next) {
+router.get('/auth/dashboard', function (req, res, next) {
   renderDashboard(req,res);
 });
 
@@ -33,12 +36,11 @@ router.get('/dashboard', function (req, res, next) {
  * @param {res} response
  */
 function renderDashboard(req,res){
-  //const { _raw, _json, ...userProfile } = req.user;
   res.render('dashboard', {
-    userProfile: JSON.stringify(req.user, null, 2),
     title: 'Dashboard',
     layout: 'dashboard',
-    dashboard:'active'
+    dashboard:'active',
+    user:{id:User.getUserId(req.user),email:User.getUserEmail(req.user)}
   });
 }
 

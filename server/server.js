@@ -7,17 +7,22 @@ import cookieParser from 'cookie-parser';
 import exphbs from 'express-handlebars';
 import session from 'express-session';
 import dotenv from 'dotenv';
-import Logger from './lib/logger';
+import Logger from './lib/utils/logger';
 import passport from 'passport';
 import Auth0Strategy from 'passport-auth0';
 import flash from 'connect-flash';
 import userInViews from './lib/middleware/userInViews';
+import User from '../server/lib/utils/user';
+import Consent from '../server/lib/utils/consent';
+import dateFormat from 'dateformat';
+
 import authRouter from '../routes/auth';
 import indexRouter from '../routes/index';
 import dashboardRouter from '../routes/dashboard';
-import connectorRouter from '../routes/connector';
-import Auth0 from '../server/lib/auth0';
-import DropBoxPod from '../server/lib/models/dropbox-pod';
+import connectorsRouter from '../routes/connectors';
+import consentLedgerRouter from '../routes/consentLedger';
+import stravaRouter from '../routes/strava';
+import facebookRouter from '../routes/facebook';
 
 dotenv.load();
 
@@ -35,12 +40,9 @@ var strategy = new Auth0Strategy(
     // accessToken is the token to call Auth0 API (not needed in the most cases)
     // extraParams.id_token has the JSON Web Token
     // profile has all the information from the user
-
     //load auth0 user extra data in the user session
-   Auth0.loadSocialLoginAccessToken(profile,function (profile) {
-     var pod=new DropBoxPod(profile.pod.accessToken);
-     profile.pod=pod;
-      return done(null, profile);
+     User.loadSocialLoginAccessToken(profile,function (profile) {
+     return done(null, profile);
     });
   }
 );
@@ -65,31 +67,35 @@ var app = express();
 /***********************************
  * Templating
  ************************************/
-var hbs = exphbs.create({  
-  helpers: {
-    ifeq: function(a, b, options) {
-      if (a === b) {
-        return options.fn(this);
+var hbs = exphbs.create(
+  { defaultLayout: 'main', 
+    extname: '.handlebars',
+    layoutsDir:'server/views/layouts',
+    partialsDir:'server/views/partials',
+    helpers: {
+      formatDate: function (datetime, format) { return dateFormat(datetime,format); },
+      consentLogo: function (type) { 
+        if(type==Consent.CONSENT_TYPE_STRAVA)
+          return "fab fa-strava";
+        else if(type==Consent.CONSENT_TYPE_DROPBOX)
+          return "fab fa-dropbox";
+        else if(type==Consent.CONSENT_TYPE_FACEBOOK)
+          return "fab fa-facebook";
+      },
+      consentType: function (type,consent) {
+        if(consent) 
+          return "Consent activation for "+type;
+        else
+          return "Consent revokation for "+type;
+      },
+      consentData: function (userId,hash) { 
+        return "for pod "+userId+ " / transaction "+hash;
       }
-      return options.inverse(this);
-    },
-    toJSON : function(object) {
-      return JSON.stringify(object);
-    },
-    section: function(name, options){ 
-        if(!this._sections) this._sections = {};
-        this._sections[name] = options.fn(this); 
-        return null;
-    } 
-  }
-});
+    }
+  });
+
 app.engine('handlebars', hbs.engine);
-app.engine('handlebars', exphbs({
-        defaultLayout: 'main', 
-        extname: '.handlebars',
-        layoutsDir:'server/views/layouts',
-        partialsDir:'server/views/partials'
-}));
+
 
 /***********************************
  * Set up app properties & engine
@@ -137,7 +143,10 @@ app.use(userInViews());
 app.use('/', authRouter);
 app.use('/', indexRouter);
 app.use('/', dashboardRouter);
-app.use('/', connectorRouter);
+app.use('/', connectorsRouter);
+app.use('/', consentLedgerRouter);
+app.use('/', stravaRouter);
+app.use('/', facebookRouter);
 
 /***********************************
  * Error handling

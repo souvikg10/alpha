@@ -5,13 +5,27 @@
  * Module dependencies.
  * @private
  ************************************/
-var express = require('express');
+import express from 'express';
 var router = express.Router();
-var passport = require('passport');
+import passport from 'passport';
+import Database from '../server/lib/db/database';
+import User from '../server/lib/utils/user';
+import Consent from '../server/lib/utils/consent';
 
 /***********************************
  * Private functions
  ************************************/
+function createUserInDb(user){
+  //console.log("************");
+  Database.defineUserConnectors().findOrCreate({where: {user_id: User.getUserId(user)}}).spread((result, created) => {
+    console.log("************"+result);
+      if (created) {
+        Consent.createUserConsent(User.getUserId(user),Consent.CONSENT_TYPE_DROPBOX,true,function(){
+        });
+      }
+    }
+  );
+}
 
 /***********************************
  * routes functions
@@ -34,14 +48,15 @@ router.get('/callback', function (req, res, next) {
       if (err) { return next(err); }
       const returnTo = req.session.returnTo;
       delete req.session.returnTo;
-      res.redirect(returnTo || '/dashboard');
+      createUserInDb(user);
+      res.redirect(returnTo || '/auth/dashboard');
     });
   })(req, res, next);
 });
 
 
 // Perform session logout and redirect to homepage
-router.get('/logout', (req, res) => {
+router.get('/auth/logout', (req, res) => {
   req.logout();
   res.redirect('/');
 });

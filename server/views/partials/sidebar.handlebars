@@ -5,23 +5,29 @@
         Tip 2: you can also add an image using data-image tag
     -->
       <div class="logo">
-        <a href="/dashboard" class="simple-text logo-normal">
-        <img src="img/logo.png" alt="logo" style="width: 48px;">
+        <a href="/auth/dashboard" class="simple-text logo-normal">
+        <img src="/img/logo.png" alt="logo" style="width: 48px;">
           DataVillage
         </a>
       </div>
       <div class="sidebar-wrapper">
         <ul class="nav">
           <li class="nav-item {{dashboard}}">
-            <a class="nav-link" href="/dashboard">
+            <a class="nav-link" href="/auth/dashboard">
               <i class="material-icons">dashboard</i>
               <p>Dashboard</p>
             </a>
           </li>
           <li class="nav-item {{connectors}}">
-            <a class="nav-link" href="/connectors">
+            <a class="nav-link" href="/auth/connectors">
               <i class="material-icons">sync</i>
               <p>Connectors</p>
+            </a>
+          </li>
+          <li class="nav-item {{consents}}">
+            <a class="nav-link" href="/auth/consents">
+              <i class="material-icons">insert_link</i>
+              <p>Consent legders</p>
             </a>
           </li>
         </ul>

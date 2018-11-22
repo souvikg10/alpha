@@ -1,0 +1,81 @@
+          <div class="card">
+            <div class="card-header card-header-primary">
+              <h3 class="card-title">Import your lifestyle data into your pod</h3>
+              <p class="card-category">Activate or deactivate connectors for which you want to synchronise data automatically into your secure personal pod.
+              </p>
+            </div>
+            <div class="card-body">
+              <h3>Social</h3>
+              <div class="row">
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="card card-stats">
+                        <div class="card-header card-header-info card-header-icon">
+                            <div class="card-icon" style="background: #3b5998;">
+                                <i class="fab fa-facebook"></i>
+                            </div>
+                            <h3 class="card-title">Facebook</h3>
+                            <div class="togglebutton">
+                                <label>
+                                    <input type="checkbox" {{facebook.checked}} onclick="if (this.checked) connectFacebook(); else unConnectFacebook();">
+                                    <span class="toggle"></span>Into my pod (yes/no)
+                                </label>
+                            </div>
+                            <button id="btnSyncStrava" class="btn btn-primary" {{facebook.disabled}} onclick="synchronizeFacebook();">Synchronize Now</button>
+                        </div>
+                        <div class="card-footer">
+                        <div class="stats">
+                            <i class="material-icons">update</i>{{facebook.lastSync}} 
+                        </div>
+                        </div>
+                    </div>
+                </div>
+              </div>
+              <h3>Sport</h3>
+              <div class="row">
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="card card-stats">
+                        <div class="card-header card-header-info card-header-icon">
+                            <div class="card-icon" style="background: #fc4c02;">
+                                <i class="fab fa-strava"></i>
+                            </div>
+                            <h3 class="card-title">Strava</h3>
+                            <div class="togglebutton">
+                                <label>
+                                    <input type="checkbox" {{strava.checked}} onclick="if (this.checked) connectStrava(); else unConnectStrava();">
+                                    <span class="toggle"></span>Into my pod (yes/no)
+                                </label>
+                            </div>
+                            <button id="btnSyncStrava" class="btn btn-primary" {{strava.disabled}} onclick="synchronizeStrava();">Synchronize Now</button>
+                        </div>
+                        <div class="card-footer">
+                        <div class="stats">
+                            <i class="material-icons">update</i>{{strava.lastSync}} 
+                        </div>
+                        </div>
+                    </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <script>
+            function connectStrava() {
+                window.location='/auth/connectors/strava/connect';
+            } 
+            function unConnectStrava() {
+                window.location='/auth/connectors/strava/unconnect'    
+            } 
+            function synchronizeStrava() {
+                window.location='/auth/connectors/strava/synchronize'
+            } 
+
+            function connectFacebook() {
+                window.location='/auth/connectors/facebook/connect';
+            } 
+            function unConnectFacebook() {
+                window.location='/auth/connectors/facebook/unconnect'    
+            } 
+            function synchronizeFacebook() {
+                window.location='/auth/connectors/facebook/synchronize'
+            } 
+
+          </script>
