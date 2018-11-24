@@ -21,20 +21,4 @@ router.get('/', function (req, res, next) {
 });
 
 
-/***********************************
- * rendering functions
- ************************************/
-
-/**
- * render home login/register page
- * @param {req} request
- * @param {res} response
- */
-function renderHome(req,res){
-    res.render('home', {
-      title: 'Home',       
-      layout: 'singlePage'
-    });  
-  }
-
 module.exports = router;
