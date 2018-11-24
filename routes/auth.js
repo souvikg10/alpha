@@ -41,7 +41,7 @@ router.get('/callback', function (req, res, next) {
   passport.authenticate('auth0', function (err, user, info) {
     if (info=="unauthorized") {  return res.redirect('/'); }
     if (err) {  return next(err); }
-    if (!user) { return res.redirect('/'); }
+    if (!user) { return res.redirect('/error'); }
     req.logIn(user, function (err) {
       if (err) { return next(err); }
       const returnTo = req.session.returnTo;
