@@ -7,7 +7,7 @@
  * @private
  ************************************/
 var ManagementClient = require('auth0').ManagementClient;
-var crypto = require('./crypto');
+//var crypto = require('./crypto');
  
 
 /***********************************
