@@ -11,11 +11,6 @@ var sourcemaps = require('gulp-sourcemaps');
 /***********************************
  * initial tasks sequence
  ************************************/
-gulp.task('build', function (callback) {
-  runSequence('lint','sass','minify-css', callback);
-});
-
-
 /***********************************
  * build sequence related tasks
  ************************************/ 
@@ -40,3 +35,11 @@ gulp.task('minify-css', function (callback) {
     .pipe (sourcemaps.write('./'))
     .pipe(gulp.dest('./client/css/'));
 });
+
+gulp.task('build',
+  gulp.series('lint', gulp.series(['sass', 'minify-css'])));
+/*gulp.task('build', function (callback) {
+  runSequence('lint','sass','minify-css', callback);
+});*/
+
+

@@ -108,11 +108,10 @@ app.engine('handlebars', hbs.engine);
 };
 
 if (app.get('env') === 'production') {
-  //sess.cookie.secure = true; // serve secure cookies, requires https
+  sess.cookie.secure = true; // serve secure cookies, requires https
 }
 
 app.use(session(sess));
-
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.static(path.join('client')));
@@ -139,7 +138,17 @@ app.use(function (req, res, next) {
 /***********************************
  * Routes
  ************************************/
+function ensureAuthenticated(req, res, next) {
+  if (req.isAuthenticated()) { return next(); }
+  res.redirect('/login');
+}
 app.use(userInViews());
+app.all('*', function(req,res,next){
+  if (req.path === '/' || req.path === '/login' || req.path === '/callback')
+    next();
+  else
+    ensureAuthenticated(req,res,next);  
+});
 app.use('/', authRouter);
 app.use('/', indexRouter);
 app.use('/', dashboardRouter);

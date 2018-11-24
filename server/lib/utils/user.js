@@ -7,6 +7,7 @@
  * @private
  ************************************/
 var ManagementClient = require('auth0').ManagementClient;
+var crypto = require('./crypto');
  
 
 /***********************************
@@ -20,6 +21,8 @@ var ManagementClient = require('auth0').ManagementClient;
 /***********************************
  * Private functions
  ************************************/
+
+
 /**
  * load access token of logged in users via auth0 social login
  *
@@ -39,9 +42,12 @@ function _loadSocialLoginAccessToken(profile,cb){
      management.getUser({ id: _getUserId(profile)}, function (err, user) {
         if(user){
             var updatedProfile=_setPodToken(profile,user.identities[0].access_token);
+
             if(user.user_metadata){
-                updatedProfile=_setConnectorTokenStrava(updatedProfile,user.user_metadata.strava);
-                updatedProfile=_setConnectorTokenFacebook(updatedProfile,user.user_metadata.facebook);
+                if(user.user_metadata.strava)
+                    updatedProfile=_setConnectorTokenStrava(updatedProfile,crypto.decrypt(user.user_metadata.strava));
+                if(user.user_metadata.facebook)
+                    updatedProfile=_setConnectorTokenFacebook(updatedProfile,crypto.decrypt(user.user_metadata.facebook));
             }
             return cb(updatedProfile);
         }
@@ -57,7 +63,7 @@ function _loadSocialLoginAccessToken(profile,cb){
  * @param {function} call-back function
  * @private
  */
-function __setUserMetaData(profile,field,value,cb){
+function _setUserMetaData(profile,field,value,cb){
     var ManagementClient = require('auth0').ManagementClient;
     var management = new ManagementClient({
         domain: process.env.AUTH0_DOMAIN,
@@ -66,7 +72,8 @@ function __setUserMetaData(profile,field,value,cb){
         scope: 'update:users_app_metadata'
         });
     var metadata = {};
-    metadata[field] = value;
+
+    metadata[field] = crypto.encrypt(value);
     management.updateUserMetadata({ id: _getUserId(profile)},metadata, function (err,user) {
         if(user){
             return cb(profile);
@@ -85,7 +92,7 @@ function __setUserMetaData(profile,field,value,cb){
  * @param {function} call-back function
  * @private
  */
-function __deleteUserMetaData(profile,field,cb){
+function _deleteUserMetaData(profile,field,cb){
     var ManagementClient = require('auth0').ManagementClient;
     var management = new ManagementClient({
         domain: process.env.AUTH0_DOMAIN,
@@ -165,7 +172,7 @@ function _setConnectorTokenStrava (profile,token,cb) {
     if (cb==null)
         return profile;
     else{
-        __setUserMetaData(profile,"strava",token,function (){
+        _setUserMetaData(profile,"strava",token,function (){
         return cb (profile);
         });
     }
@@ -175,7 +182,7 @@ function _setConnectorTokenFacebook (profile,token,cb) {
     if (cb==null)
         return profile;
     else{
-        __setUserMetaData(profile,"facebook",token,function (){
+        _setUserMetaData(profile,"facebook",token,function (){
         return cb (profile);
         });
     }
@@ -205,13 +212,13 @@ function _getConnectorTokenFacebook (profile) {
  */
 function _deleteConnectorTokenStrava (profile,cb) {
     profile.strava={};
-    __deleteUserMetaData(profile,"strava",function (){
+    _deleteUserMetaData(profile,"strava",function (){
         return cb (profile);
     });
 }
 function _deleteConnectorTokenFacebook (profile,cb) {
     profile.facebook={};
-    __deleteUserMetaData(profile,"facebook",function (){
+    _deleteUserMetaData(profile,"facebook",function (){
         return cb (profile);
     });
 }

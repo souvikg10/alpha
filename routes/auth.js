@@ -16,9 +16,7 @@ import Consent from '../server/lib/utils/consent';
  * Private functions
  ************************************/
 function createUserInDb(user){
-  //console.log("************");
   Database.defineUserConnectors().findOrCreate({where: {user_id: User.getUserId(user)}}).spread((result, created) => {
-    console.log("************"+result);
       if (created) {
         Consent.createUserConsent(User.getUserId(user),Consent.CONSENT_TYPE_DROPBOX,true,function(){
         });
@@ -58,7 +56,7 @@ router.get('/callback', function (req, res, next) {
 // Perform session logout and redirect to homepage
 router.get('/auth/logout', (req, res) => {
   req.logout();
-  res.redirect('/');
+  res.redirect('https://datavillage.eu.auth0.com/v2/logout?returnTo='+process.env.AUTH0_LOGOUT_CALLBACK_URL+'&client_id='+process.env.AUTH0_CLIENT_ID);
 });
 
 
