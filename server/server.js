@@ -41,7 +41,9 @@ var strategy = new Auth0Strategy(
     // extraParams.id_token has the JSON Web Token
     // profile has all the information from the user
     //load auth0 user extra data in the user session
-    return done(null, profile);
+     User.loadSocialLoginAccessToken(profile,function (profile) {
+     return done(null, profile);
+    });
   }
 );
 
