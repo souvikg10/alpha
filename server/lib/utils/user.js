@@ -7,7 +7,7 @@
  * @private
  ************************************/
 var ManagementClient = require('auth0').ManagementClient;
-//var crypto = require('./crypto');
+var crypto = require('./crypto');
  
 
 /***********************************
@@ -42,12 +42,13 @@ function _loadSocialLoginAccessToken(profile,cb){
      management.getUser({ id: _getUserId(profile)}, function (err, user) {
         if(user){
             var updatedProfile=_setPodToken(profile,user.identities[0].access_token);
-           /* if(user.user_metadata){
+
+            if(user.user_metadata){
                 if(user.user_metadata.strava)
                     updatedProfile=_setConnectorTokenStrava(updatedProfile,crypto.decrypt(user.user_metadata.strava));
                 if(user.user_metadata.facebook)
                     updatedProfile=_setConnectorTokenFacebook(updatedProfile,crypto.decrypt(user.user_metadata.facebook));
-            }*/
+            }
             return cb(updatedProfile);
         }
     });
