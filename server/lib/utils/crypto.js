@@ -1,6 +1,5 @@
 var crypto = require('crypto');
 
-var ENCRYPTION_KEY = process.env.ENCRYPTION_KEY; // Must be 256 bytes (32 characters)
 var IV_LENGTH = 16; // For AES, this is always 16
 
 function encrypt(text) {
