@@ -144,7 +144,7 @@ function ensureAuthenticated(req, res, next) {
 }
 app.use(userInViews());
 app.all('*', function(req,res,next){
-  if (req.path === '/' || req.path === '/login' || req.path === '/callback')
+  if (req.path === '/' || req.path === '/login' || req.path === '/callback' || req.path === '/error')
     next();
   else
     ensureAuthenticated(req,res,next);  
