@@ -2,6 +2,7 @@
  * Module dependencies. 
  ************************************/
 import express from 'express';
+import enforce from 'express-sslify';
 import path from 'path';
 import cookieParser from 'cookie-parser';
 import exphbs from 'express-handlebars';
@@ -109,6 +110,7 @@ app.engine('handlebars', hbs.engine);
 
 if (app.get('env') === 'production') {
   //sess.cookie.secure = true; // serve secure cookies, requires https
+  app.use(enforce.HTTPS());
 }
 
 app.use(session(sess));

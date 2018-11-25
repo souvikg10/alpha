@@ -17,7 +17,7 @@ var router = express.Router();
  ************************************/
 /* GET home login/register page. */
 router.get('/', function (req, res, next) {
-  res.redirect("http://www.datavillage.me");
+  res.redirect("/login");
 });
 
 
