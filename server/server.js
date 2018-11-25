@@ -110,7 +110,7 @@ app.engine('handlebars', hbs.engine);
 
 if (app.get('env') === 'production') {
   //sess.cookie.secure = true; // serve secure cookies, requires https
-  app.use(enforce.HTTPS());
+  app.use(enforce.HTTPS({ trustProtoHeader: true }));
 }
 
 app.use(session(sess));
