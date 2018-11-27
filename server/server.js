@@ -22,6 +22,7 @@ import indexRouter from '../routes/index';
 import dashboardRouter from '../routes/dashboard';
 import connectorsRouter from '../routes/connectors';
 import consentLedgerRouter from '../routes/consentLedger';
+import developerRouter from '../routes/developers';
 import stravaRouter from '../routes/strava';
 import facebookRouter from '../routes/facebook';
 
@@ -156,6 +157,7 @@ app.use('/', indexRouter);
 app.use('/', dashboardRouter);
 app.use('/', connectorsRouter);
 app.use('/', consentLedgerRouter);
+app.use('/', developerRouter);
 app.use('/', stravaRouter);
 app.use('/', facebookRouter);
 
