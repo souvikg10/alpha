@@ -1,6 +1,6 @@
 {
   "name": "alpha.datavillage.me",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Profitez de vos données personnelles",
   "main": "server/server.js",
   "scripts": {
