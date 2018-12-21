@@ -36,7 +36,7 @@ router.get('/login', passport.authenticate('auth0', {
   res.redirect('/');
 });
 
-// Perform the final stage of authentication and redirect to previously requested URL or '/user'
+// Perform the final stage of authentication and redirect to previously requested URL or '/auth/dashboard'
 router.get('/callback', function (req, res, next) {
   passport.authenticate('auth0', function (err, user, info) {
     if (info=="unauthorized") {  return res.redirect('/error'); }
@@ -63,6 +63,18 @@ router.get('/auth/logout', (req, res) => {
 /***********************************
  * rendering functions
  ************************************/
+
+/**
+ * render dashboard home
+ * @param {req} request
+ * @param {res} response
+ */
+function renderSolidLogin(req,res){
+  res.render('solid', {
+    title: 'Solid',
+    layout: 'singlePage'
+  });
+}
 
 
 module.exports = router;

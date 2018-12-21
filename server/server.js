@@ -19,6 +19,7 @@ import dateFormat from 'dateformat';
 
 import authRouter from '../routes/auth';
 import indexRouter from '../routes/index';
+import solidRouter from '../routes/solid';
 import dashboardRouter from '../routes/dashboard';
 import connectorsRouter from '../routes/connectors';
 import consentLedgerRouter from '../routes/consentLedger';
@@ -138,6 +139,7 @@ app.use(function (req, res, next) {
   next();
 });
 
+
 /***********************************
  * Routes
  ************************************/
@@ -147,13 +149,14 @@ function ensureAuthenticated(req, res, next) {
 }
 app.use(userInViews());
 app.all('*', function(req,res,next){
-  if (req.path === '/' || req.path === '/login' || req.path === '/callback' || req.path === '/error')
+  if (req.path === '/' || req.path === '/login' || req.path === '/solid/login' || req.path === '/solid/callback' || req.path === '/callback' || req.path === '/error')
     next();
   else
     ensureAuthenticated(req,res,next);  
 });
 app.use('/', authRouter);
 app.use('/', indexRouter);
+app.use('/', solidRouter);
 app.use('/', dashboardRouter);
 app.use('/', connectorsRouter);
 app.use('/', consentLedgerRouter);

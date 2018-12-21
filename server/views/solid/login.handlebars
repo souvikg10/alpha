@@ -1,0 +1,36 @@
+
+<script>
+  solid.auth.logout()
+  .then(() => alert('Goodbye!'));
+async function popupLogin() {
+  let session = await solid.auth.currentSession();
+  let popupUri = 'https://inrupt.net/common/popup.html';
+  if (!session)
+    session = await solid.auth.popupLogin({ popupUri });
+ // ;
+ var keys = Object.keys(session);
+ var getKeys = function(obj){
+   var keys = [];
+   for(var key in obj){
+      keys.push(key);
+   }
+   return keys;
+}
+ // window.location="{{callbackURL}}?access_token="+session.authorization.access_token+"&client_id="+session.authorization.client_id+"&id_token="+session.authorization.id_token
+ 
+  
+ alert(solid.data.user.firstName);
+ // alert(JSON.stringify(session.authorization.client_id));
+}
+
+async function login(idp) {
+  const session = await solid.auth.currentSession();
+  if (!session)
+    await solid.auth.login(idp);
+  else
+    alert(`Logged in as ${session.webId}`);
+}
+
+popupLogin('https://inrupt.net');
+
+</script>
