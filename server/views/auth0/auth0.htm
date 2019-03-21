@@ -76,9 +76,12 @@
 				      <li class="nav-item">
 	                    <a class="nav-link " href="https://www.datavillage.me/landing-companies">Organisations</a>
 	            </li>
-							<li class="nav-item">
+				<li class="nav-item">
 	                    <a class="nav-link "  href="https://www.datavillage.me/landing-developers">Developers</a>
-	            </li>
+				</li>
+				<li class="nav-item">
+                    <a class="nav-link"  href="https://www.datavillage.me/follow">#Follow</a>
+            	</li>
 				 </ul>
 						<ul class="navbar-nav ml-auto">
 							<li class="nav-item">
@@ -109,7 +112,7 @@
 										<div class="item mb-md50">
 											<div class="extra-title">
 													<h2 class="extra-title-small-margin" style="color:#000">Join <span> Datavillage</span></h2>
-													<p class="description text-center">Choose your pod provider and link it!</p>
+													<p class="description text-center">Choose your profile provider and link it!</p>
 											</div>
 
 											<div class="features">
@@ -117,16 +120,16 @@
 													
 													<div class="form-check text-left">
 														<label class="description">
-															<input class="form-check-input" type="radio" name="podRadios" id="podRadiosDropbox" value="dropbox" checked>
-															<p class="description text-center"> <img src="https://www.datavillage.me/img/dropbox.png" style="width:48px" align="middle"/> Dropbox</p>
+															<input class="form-check-input" type="radio" name="podRadios" id="podRadiosGoogle" value="google" checked>
+															<p class="description text-center"> <i class="fab fa-google"></i> Google</p>
 															<span class="check"></span>
 															</span>
 														</label>
 													</div>
 													<div class="form-check text-left">
 														<label class="form-check-label">
-															<input class="form-check-input" type="radio" name="podRadios" id="podRadiosSolid" value="solid" disabled>
-															<p class="description text-center"><img src="https://www.datavillage.me/img/solid-logo.png" style="width:48px" align="middle"/> Solid (soon)</p>
+															<input class="form-check-input" type="radio" name="podRadios" id="podRadiosFacebook" value="facebook" disabled>
+															<p class="description text-center"><i class="fab fa-facebook"></i> Facebook (soon)</p>
 															<span class="check"></span>
 															</span>
 														</label>
@@ -135,7 +138,7 @@
 											</div>
 											<div class="order">
 												<a id="btn-link" href="#" class="butn butn-light">
-													<span>Link my pod</span>
+													<span>Link my profile</span>
 												</a>
 											</div>
 										</div>
@@ -201,23 +204,27 @@
 
 				var webAuth = new auth0.WebAuth(params);
 
-				function loginWithDropbox() {
+				function loginWithGoogle() {
 					webAuth.authorize({
-					connection: 'dropbox'
+					connection: 'google-oauth2'
 					}, function(err) {
 					if (err) displayError(err);
 					});
 				}
 
-				function loginWithSolid() {
-					window.location="https://alpha.datavillage.me/solid/login";
+				function loginWithFacebook() {
+					webAuth.authorize({
+					connection: 'facebook'
+					}, function(err) {
+					if (err) displayError(err);
+					});
 				}
 
 				function login() {
-					if (document.getElementById('podRadiosDropbox').checked)
-						loginWithDropbox();
+					if (document.getElementById('podRadiosGoogle').checked)
+						loginWithGoogle();
 					else
-						loginWithSolid();
+						loginWithFacebook();
 				}
 				document.getElementById('btn-link').addEventListener('click', login);
 				});

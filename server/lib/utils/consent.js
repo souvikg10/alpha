@@ -57,7 +57,7 @@ function _getUserConsents (userId,cb) {
 var self=module.exports={
     CONSENT_TYPE_STRAVA:"STRAVA",
     CONSENT_TYPE_FACEBOOK:"FACEBOOK",
-    CONSENT_TYPE_DROPBOX:"DROPBOX",
+    CONSENT_TYPE_GOOGLE:"GOOGLE",
     createUserConsent:function(userId,type,consent,cb){
         _createUserConsent(userId,type,consent,cb);
     },

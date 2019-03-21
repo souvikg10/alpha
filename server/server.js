@@ -80,8 +80,8 @@ var hbs = exphbs.create(
       consentLogo: function (type) { 
         if(type==Consent.CONSENT_TYPE_STRAVA)
           return "fab fa-strava";
-        else if(type==Consent.CONSENT_TYPE_DROPBOX)
-          return "fab fa-dropbox";
+        else if(type==Consent.CONSENT_TYPE_GOOGLE)
+          return "fab fa-google";
         else if(type==Consent.CONSENT_TYPE_FACEBOOK)
           return "fab fa-facebook";
       },

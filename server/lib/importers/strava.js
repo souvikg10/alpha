@@ -33,7 +33,7 @@ function _importData(profile,cb){
     strava.athlete.get({'access_token':User.getConnectorTokenStrava(profile)},function(err,payload,limits) {
         if (!err) {
             /* handle the result */
-            DropBoxPod.createFileIfNotExist(User.getPodToken(profile),"/strava","me.json",JSON.stringify(payload));
+            DropBoxPod.createFileIfNotExist(User.getProfileToken(profile),"/strava","me.json",JSON.stringify(payload));
             Activity.updateUserActivity(User.getUserId(profile),Activity.ACTIVITY_CATEGORY_STRAVA,Activity.ACTIVITY_TYPE_SYNC,function(){
                 cb();
             });

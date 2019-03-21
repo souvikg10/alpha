@@ -18,7 +18,7 @@ import Consent from '../server/lib/utils/consent';
 function createUserInDb(user){
   Database.defineUserConnectors().findOrCreate({where: {user_id: User.getUserId(user)}}).spread((result, created) => {
       if (created) {
-        Consent.createUserConsent(User.getUserId(user),Consent.CONSENT_TYPE_DROPBOX,true,function(){
+        Consent.createUserConsent(User.getUserId(user),Consent.CONSENT_TYPE_GOOGLE,true,function(){
         });
       }
     }

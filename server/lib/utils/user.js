@@ -28,7 +28,7 @@ var crypto = require('./crypto');
  *
  * @param {Object} authentication user by auth0
  * @param {function} call-back function
- * @return {Object} updated user with pod access token
+ * @return {Object} updated user with profile access token
  * @private
  */
 function _loadSocialLoginAccessToken(profile,cb){
@@ -41,7 +41,7 @@ function _loadSocialLoginAccessToken(profile,cb){
         });
      management.getUser({ id: _getUserId(profile)}, function (err, user) {
         if(user){
-            var updatedProfile=_setPodToken(profile,user.identities[0].access_token);
+            var updatedProfile=_setProfileToken(profile,user.identities[0].access_token);
 
             if(user.user_metadata){
                 if(user.user_metadata.strava)
@@ -134,27 +134,27 @@ function _getUserEmail (profile) {
 
 
 /**
- * set pod token for user
+ * set Profile token for user
  *
  * @param {Object} profile passport object 
  * @param {String} token 
  * @return {Object} profile passport object
  * @private
  */
-function _setPodToken (profile,token) {
-    profile.pod={"token":""+token+""};
+function _setProfileToken (profile,token) {
+    profile.profile={"token":""+token+""};
     return profile;
 }
 
 /**
- * get pod token for user
+ * get Profile token for user
  *
  * @param {Object} profile passport object 
  * @return {String} token 
  * @private
  */
-function _getPodToken (profile) {
-    return profile.pod.token;
+function _getProfileToken (profile) {
+    return profile.profile.token;
 }
 
 
@@ -237,11 +237,11 @@ var self=module.exports={
     getUserEmail:function(profile){
         return _getUserEmail(profile);
     },
-    setPodToken:function(profile,token){
-        _setPodToken(profile,token);
+    setProfileToken:function(profile,token){
+        _setProfileToken(profile,token);
     },
-    getPodToken:function(profile){
-        return _getPodToken(profile);
+    getProfileToken:function(profile){
+        return _getProfileToken(profile);
     },
     setConnectorTokenStrava:function(profile,token,cb){
         return _setConnectorTokenStrava(profile,token,cb);
