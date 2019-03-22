@@ -60,21 +60,4 @@ router.get('/auth/logout', (req, res) => {
 });
 
 
-/***********************************
- * rendering functions
- ************************************/
-
-/**
- * render dashboard home
- * @param {req} request
- * @param {res} response
- */
-function renderSolidLogin(req,res){
-  res.render('solid', {
-    title: 'Solid',
-    layout: 'singlePage'
-  });
-}
-
-
 module.exports = router;

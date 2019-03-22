@@ -74,7 +74,7 @@ function _getUserSyncActivity (userId,cb) {
 var self=module.exports={
     ACTIVITY_TYPE_SYNC:"SYNC",
     ACTIVITY_TYPE_LOGIN:"LOGIN",
-    ACTIVITY_CATEGORY_DROPBOX:"DROPBOX",
+    ACTIVITY_CATEGORY_GOOGLE:"GOOGLE",
     ACTIVITY_CATEGORY_STRAVA:"STRAVA",
     ACTIVITY_CATEGORY_FACEBOOK:"FACEBOOK",
     updateUserActivity:function(userId,category,type,cb){

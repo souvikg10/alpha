@@ -18,7 +18,7 @@
    .consent-STRAVA {
     background-color:#fc4c02;
    }
-   .consent-DROPBOX {
+   .consent-GOOGLE {
     background-color:#007ee5;
    }
    .consent-FACEBOOK {
@@ -72,7 +72,7 @@
    .tracking-item .tracking-icon.consent-STRAVA {
     background-color:#fc4c02;
    }
-   .tracking-item .tracking-icon.consent-DROPBOX  {
+   .tracking-item .tracking-icon.consent-GOOGLE  {
     background-color:#007ee5
    }
    .tracking-item .tracking-icon.consent-FACEBOOK  {
