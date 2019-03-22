@@ -91,7 +91,7 @@ var hbs = exphbs.create(
           return "Consent revokation for "+type;
       },
       consentData: function (userId,hash) { 
-        return " / transaction "+hash;
+        return "Transaction "+hash;
       }
     }
   });
