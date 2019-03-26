@@ -7,11 +7,11 @@ import path from 'path';
 import cookieParser from 'cookie-parser';
 import exphbs from 'express-handlebars';
 import session from 'express-session';
-import dotenv from 'dotenv';
 import Logger from './lib/utils/logger';
 import passport from 'passport';
 import Auth0Strategy from 'passport-auth0';
 import flash from 'connect-flash';
+import config from '../config/index';
 import userInViews from './lib/middleware/userInViews';
 import User from '../server/lib/utils/user';
 import Consent from '../server/lib/utils/consent';
@@ -26,17 +26,16 @@ import developerRouter from '../routes/developers';
 import stravaRouter from '../routes/strava';
 import facebookRouter from '../routes/facebook';
 
-dotenv.load();
 
 /***********************************
  * Set up passports
  ************************************/
 var strategy = new Auth0Strategy(
   {
-    domain: process.env.AUTH0_DOMAIN,
-    clientID: process.env.AUTH0_CLIENT_ID,
-    clientSecret: process.env.AUTH0_CLIENT_SECRET,
-    callbackURL:process.env.AUTH0_CALLBACK_URL 
+    domain: config.domain,
+    clientID: config.clientID,
+    clientSecret: config.clientSecret,
+    callbackURL:config.clientSecret 
   },
   function (accessToken, refreshToken, extraParams, profile, done) {
     // accessToken is the token to call Auth0 API (not needed in the most cases)
@@ -103,13 +102,13 @@ app.engine('handlebars', hbs.engine);
  * Set up app properties & engine
  ************************************/
  var sess = {
-  secret: process.env.SESSION_SECRET,
+  secret: config.secret,
   cookie: {},
   resave: false,
   saveUninitialized: true
 };
 
-if (app.get('env') === 'production') {
+if (config.env === 'production') {
   //sess.cookie.secure = true; // serve secure cookies, requires https
   app.use(enforce.HTTPS({ trustProtoHeader: true }));
 }
@@ -176,7 +175,7 @@ app.use(function (req, res, next) {
 
 // Development error handler
 // Will print stacktrace
-if (app.get('env') === process.env.ENVIRONEMENT_DEVELOPMENT) {
+if (config.env === "development") {
   app.use(function (err, req, res, next) {
     res.status(err.status || 500);
     res.render('error', {
@@ -203,8 +202,7 @@ app.use(function (err, req, res, next) {
  * Start server
  ************************************/
 
-var PORT = process.env.PORT || 3000;
-var server=app.listen(PORT, function()  {
+var server=app.listen(config.port, function()  {
     var host = server.address().address;
     var port = server.address().port;
     

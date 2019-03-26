@@ -4,7 +4,9 @@
   "description": "Live your life and get benefit from your personal data",
   "main": "server/server.js",
   "scripts": {
-    "start": "node server/start.js"
+    "start": "node server/start.js",
+    "test": "NODE_ENV=test mocha --timeout 10000",
+    "test-coverage": "NODE_ENV=test istanbul cover _mocha -- -R spec"
   },
   "dependencies": {
     "auth0": "^2.14.0",
@@ -51,7 +53,14 @@
     "gulp-sass": "^4.0.2",
     "gulp-sourcemaps": "^1.9.1",
     "jshint": "^2.9.6",
-    "run-sequence": "^1.2.2"
+    "run-sequence": "^1.2.2",
+    "chai": "^3.5.0",
+    "install": "^0.8.8",
+    "istanbul": "^0.4.5",
+    "mocha": "^3.2.0",
+    "nodemon": "^1.11.0",
+    "npm": "^4.4.4",
+    "supertest": "^3.0.0"
   },
   "engines": {
     "node": "11.0.0"
