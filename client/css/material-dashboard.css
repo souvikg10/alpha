@@ -11918,6 +11918,17 @@ label {
     .card-profile .card-avatar img {
       width: 100px;
       height: auto; }
+  .card-profile .card-avatar-big {
+    margin: 20px auto 0;
+    border-radius: 50%;
+    overflow: hidden;
+    padding: 0;
+    box-shadow: 0 16px 38px -12px rgba(0, 0, 0, 0.56), 0 4px 25px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2); }
+    .card-profile .card-avatar-big + .card-body {
+      margin-top: 15px; }
+    .card-profile .card-avatar-big img {
+      width: 400px;
+      height: auto; }
   .card-profile .card-body + .card-footer {
     margin-top: -15px; }
   .card-profile .card-footer .btn.btn-just-icon {

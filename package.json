@@ -4,7 +4,7 @@
   "description": "Live your life and get benefit from your personal data",
   "main": "server/server.js",
   "scripts": {
-    "start": "node server/start.js",
+    "start": "nodemon server/start.js",
     "test": "NODE_ENV=test mocha --timeout 10000",
     "test-coverage": "NODE_ENV=test istanbul cover _mocha -- -R spec"
   },
@@ -26,6 +26,7 @@
     "express-sslify": "^1.2.0",
     "express-validator": "^5.3.0",
     "express-winston-middleware": "^0.1.0",
+    "config": "^3.0.1",
     "fb": "^2.0.0",
     "googleapis": "^34.0.0",
     "http-errors": "~1.6.2",

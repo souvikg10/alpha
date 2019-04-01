@@ -20,6 +20,7 @@ import dateFormat from 'dateformat';
 import authRouter from '../routes/auth';
 import indexRouter from '../routes/index';
 import dashboardRouter from '../routes/dashboard';
+import profileRouter from '../routes/profile';
 import connectorsRouter from '../routes/connectors';
 import consentLedgerRouter from '../routes/consentLedger';
 import developerRouter from '../routes/developers';
@@ -32,17 +33,17 @@ import facebookRouter from '../routes/facebook';
  ************************************/
 var strategy = new Auth0Strategy(
   {
-    domain: config.domain,
-    clientID: config.clientID,
-    clientSecret: config.clientSecret,
-    callbackURL:config.callbackURL 
+    domain: config.securityDomain,
+    clientID: config.securityClientID,
+    clientSecret: config.securityClientSecret,
+    callbackURL:config.securityCallbackURL 
   },
   function (accessToken, refreshToken, extraParams, profile, done) {
     // accessToken is the token to call Auth0 API (not needed in the most cases)
     // extraParams.id_token has the JSON Web Token
     // profile has all the information from the user
     //load auth0 user extra data in the user session
-     User.loadSocialLoginAccessToken(profile,function (profile) {
+     User.loadUserProfile(profile,function (profile) {
      return done(null, profile);
     });
   }
@@ -155,6 +156,7 @@ app.all('*', function(req,res,next){
 app.use('/', authRouter);
 app.use('/', indexRouter);
 app.use('/', dashboardRouter);
+app.use('/', profileRouter);
 app.use('/', connectorsRouter);
 app.use('/', consentLedgerRouter);
 app.use('/', developerRouter);
