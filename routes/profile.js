@@ -33,13 +33,23 @@ router.post('/auth/profile/submit', [
     .isEmail()
     .withMessage('That email doesn‘t look right')
 ], (req, res) => {
-  
+
   const errors = validationResult(req);
-  console.log(req.body.email);
+
+  var maleChecked="";
+  var femaleChecked="checked";
+  if (req.body.gender=="male") {
+    maleChecked="checked";
+    femaleChecked="";
+  }
+  req.body.maleChecked=maleChecked;
+  req.body.femaleChecked=femaleChecked;
+  req.body.picture=User.getPicture(req.user),
+
   res.render('profile', {
     title: 'Profile',
     layout: 'dashboard',
-    data: req.body,
+    user: req.body,
     errors: errors.mapped()
   });
 });

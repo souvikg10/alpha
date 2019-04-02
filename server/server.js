@@ -4,6 +4,7 @@
 import express from 'express';
 import enforce from 'express-sslify';
 import path from 'path';
+import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import exphbs from 'express-handlebars';
 import session from 'express-session';
@@ -153,6 +154,12 @@ app.all('*', function(req,res,next){
   else
     ensureAuthenticated(req,res,next);  
 });
+
+// for parsing application/json
+app.use(bodyParser.json()); 
+// for parsing application/xwww-
+app.use(bodyParser.urlencoded({ extended: true })); 
+
 app.use('/', authRouter);
 app.use('/', indexRouter);
 app.use('/', dashboardRouter);
