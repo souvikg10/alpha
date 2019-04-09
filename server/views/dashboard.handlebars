@@ -1,70 +1,81 @@
-<div class="row">
-            <div class="col-lg-3 col-md-6 col-sm-6">
-              <div class="card card-stats">
-                <div class="card-header card-header-warning card-header-icon">
-                  <div class="card-icon">
-                    <i class="material-icons">content_copy</i>
-                  </div>
-                  <p class="card-category">Used Space</p>
-                  <h3 class="card-title">49/50
-                    <small>GB</small>
-                  </h3>
-                </div>
-                <div class="card-footer">
-                  <div class="stats">
-                    <i class="material-icons text-danger">warning</i>
-                    <a href="#pablo">Get More Space...</a>
-                  </div>
+          <div class="card">
+            <div class="card-header card-header-primary">
+              <h3 class="card-title">Choose the microapps that will improve your life</h3>
+              <p class="card-category">Activate or deactivate the microapps you want to use to improve your day to day life.
+              </p>
+            </div>
+            <div class="card-body">
+              <h3>General</h3>
+              <div class="row">
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="card card-stats">
+                        <div class="card-header card-header-info card-header-icon">
+                            <div class="card-icon" style="background: #79d0dc;">
+                                <i class="fas fa-brain"></i>
+                            </div>
+                            <h3 class="card-title">Néo</h3>
+                            <div class="togglebutton">
+                                <label>
+                                    by Datavillage<br/>
+                                    uses Digital Twin
+                                </label>
+                            </div>
+                            <button id="btnSyncStrava" class="btn btn-primary" {{facebook.disabled}} onclick="synchronizeFacebook();">Activate</button>
+                        </div>
+                        <div class="card-footer">
+                        <div class="stats">
+                            <i class="material-icons">update</i>Last execution {{facebook.lastSync}} 
+                        </div>
+                        </div>
+                    </div>
                 </div>
               </div>
-            </div>
-            <div class="col-lg-3 col-md-6 col-sm-6">
-              <div class="card card-stats">
-                <div class="card-header card-header-success card-header-icon">
-                  <div class="card-icon">
-                    <i class="material-icons">store</i>
-                  </div>
-                  <p class="card-category">Revenue</p>
-                  <h3 class="card-title">$34,245</h3>
-                </div>
-                <div class="card-footer">
-                  <div class="stats">
-                    <i class="material-icons">date_range</i> Last 24 Hours
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-3 col-md-6 col-sm-6">
-              <div class="card card-stats">
-                <div class="card-header card-header-danger card-header-icon">
-                  <div class="card-icon">
-                    <i class="material-icons">info_outline</i>
-                  </div>
-                  <p class="card-category">Fixed Issues</p>
-                  <h3 class="card-title">75</h3>
-                </div>
-                <div class="card-footer">
-                  <div class="stats">
-                    <i class="material-icons">local_offer</i> Tracked from Github
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-3 col-md-6 col-sm-6">
-              <div class="card card-stats">
-                <div class="card-header card-header-info card-header-icon">
-                  <div class="card-icon">
-                    <i class="material-icons">data_usage</i>
-                  </div>
-                  <p class="card-category">General</p>
-                  <h3 class="card-title">Néo by Datavillage</h3>
-                </div>
-                <div class="card-footer">
-                  <div class="stats">
-                    <i class="material-icons">update</i> Just Updated
-                  </div>
+              <h3>Energy</h3>
+              <div class="row">
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="card card-stats">
+                        <div class="card-header card-header-info card-header-icon">
+                            <div class="card-icon" style="background: #fc4c02;">
+                                <i class="fab fa-strava"></i>
+                            </div>
+                            <h3 class="card-title">Strava</h3>
+                            <div class="togglebutton">
+                                <label>
+                                    <input type="checkbox" {{strava.checked}} onclick="if (this.checked) connectStrava(); else unConnectStrava();">
+                                    <span class="toggle"></span>Into my pod (yes/no)
+                                </label>
+                            </div>
+                            <button id="btnSyncStrava" class="btn btn-primary" {{strava.disabled}} onclick="synchronizeStrava();">Synchronize Now</button>
+                        </div>
+                        <div class="card-footer">
+                        <div class="stats">
+                            <i class="material-icons">update</i>{{strava.lastSync}} 
+                        </div>
+                        </div>
+                    </div>
                 </div>
               </div>
             </div>
           </div>
-</div>
+          <script>
+            function connectStrava() {
+                window.location='/auth/connectors/strava/connect';
+            } 
+            function unConnectStrava() {
+                window.location='/auth/connectors/strava/unconnect'    
+            } 
+            function synchronizeStrava() {
+                window.location='/auth/connectors/strava/synchronize'
+            } 
+
+            function connectFacebook() {
+                window.location='/auth/connectors/facebook/connect';
+            } 
+            function unConnectFacebook() {
+                window.location='/auth/connectors/facebook/unconnect'    
+            } 
+            function synchronizeFacebook() {
+                window.location='/auth/connectors/facebook/synchronize'
+            } 
+
+          </script>

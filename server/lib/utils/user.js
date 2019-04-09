@@ -64,8 +64,20 @@ function _loadUserProfile(profile,cb){
             return cb(updatedProfile);
         }
     });
-    
 }
+
+/**
+ * load user profile data in users via auth0 social login
+ *
+ * @param {Object} authenticated user by auth0
+ * @param {function} call-back function
+ * @private
+ */
+function _saveUserProfile(profile,cb){
+    _setUserMetaData(profile,"adress",_getAdress(profile),function (){
+        return cb (profile);
+        });
+} 
 
 /**
  * update user meta-deta in auth0 user database
@@ -482,6 +494,9 @@ function _deleteConnectorTokenFacebook (profile,cb) {
 var self=module.exports={
     loadUserProfile:function(user,cb){
         _loadUserProfile(user,cb);
+    },
+    saveUserProfile:function(user,cb){
+        _saveUserProfile(user,cb);
     },
     getUserId:function(profile){
         return _getUserId(profile);

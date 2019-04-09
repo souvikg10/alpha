@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+<head>
+	{{> html-head}}
+</head>
+
+<body class="" onload="draw()">
+  <div class="wrapper ">
+	{{> loader}}
+	{{> sidebar}}
+	<div class="main-panel">
+		{{> navbar}}
+		<div class="content">
+			<div class="container-fluid">
+				{{{body}}}
+			</div>
+      	</div>
+		{{> footer}}
+	</div>
+</div>
+</body>
+{{> html-foot}}
+</html>

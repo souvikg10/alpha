@@ -44,7 +44,15 @@ router.post('/auth/profile/submit', [
   }
   req.body.maleChecked=maleChecked;
   req.body.femaleChecked=femaleChecked;
-  req.body.picture=User.getPicture(req.user),
+  req.body.picture=User.getPicture(req.user);
+  var user=User.setAdress(req.user,req.body.adress);
+  
+
+  User.saveUserProfile(req.user, function(profile){
+    
+  });
+
+
 
   res.render('profile', {
     title: 'Profile',

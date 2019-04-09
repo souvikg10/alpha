@@ -20,6 +20,7 @@ import dateFormat from 'dateformat';
 
 import authRouter from '../routes/auth';
 import indexRouter from '../routes/index';
+import digitaltwinRouter from '../routes/digitaltwin';
 import dashboardRouter from '../routes/dashboard';
 import profileRouter from '../routes/profile';
 import connectorsRouter from '../routes/connectors';
@@ -162,6 +163,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use('/', authRouter);
 app.use('/', indexRouter);
+app.use('/', digitaltwinRouter);
 app.use('/', dashboardRouter);
 app.use('/', profileRouter);
 app.use('/', connectorsRouter);

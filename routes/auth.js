@@ -47,7 +47,7 @@ router.get('/callback', function (req, res, next) {
       const returnTo = req.session.returnTo;
       delete req.session.returnTo;
       createUserInDb(user);
-      res.redirect(returnTo || '/auth/dashboard');
+      res.redirect(returnTo || '/auth/digitaltwin');
     });
   })(req, res, next);
 });

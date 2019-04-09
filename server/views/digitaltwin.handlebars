@@ -1,0 +1,69 @@
+          <div class="card">
+            <div class="card-header card-header-primary">
+              <h3 class="card-title">Check out your digital twin</h3>
+              <p class="card-category">Visualise all activites of your life, perform simple queries and discover unexpected things. 
+              </p>
+            </div>
+            <div class="card-body">
+                <form action="/auth/profile/submit" method="post">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                            <label class="bmd-label-floating">Activity type</label>
+                            <input type="text" class="form-control" name="activity" value="">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                            <label class="bmd-label-floating">Location</label>
+                            <input type="text" class="form-control" name="location" value="">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                            <label class="bmd-label-floating">Date &amp; Time</label>
+                            <input type="text" class="form-control" name="datetime" value="">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary">Query digital twin</button>
+                            </div>
+                        </div>
+                    </div>
+                        
+                    <div class="clearfix"></div>
+                </form>
+              <h3>Energy</h3>
+              <div class="row">
+                <div class="col-md-12 col-sm-12">
+                    <div class="card card-stats">
+     
+                        <style type="text/css">
+                            #viz {
+                                width: 900px;
+                                height: 700px;
+                            }
+                        </style>
+                        
+                    <script>
+                        function draw() {
+                            var config = {
+                                container_id: "viz",
+                                server_url: "bolt://ws-10-0-1-191-33472.neo4jsandbox.com:443",
+                                server_user: "neo4j",
+                                server_password: "signalers-inspection-cellar",
+                                initial_cypher: "match (c:Person)-[s{year:'2015'}]->(a:Ride)-[r]->(b:Location) return a,b,c,s,r"
+                            }
+                            var viz = new NeoVis.default(config);
+                            viz.render();
+                        }
+                    </script>
+                
+                        <div id="viz"></div>
+
+                    </div>
+                </div>
+              </div>
+            </div>
+          </div>
