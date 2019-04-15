@@ -50,9 +50,9 @@
                         function draw() {
                             var config = {
                                 container_id: "viz",
-                                server_url: "bolt://ws-10-0-1-191-33472.neo4jsandbox.com:443",
-                                server_user: "neo4j",
-                                server_password: "signalers-inspection-cellar",
+                                server_url: "bolt://hobby-jnclkgbadkkkgbkeeofadacl.dbs.graphenedb.com:24787",
+                                server_user: "datavillage",
+                                server_password: "b.fkks40n8ze2F.bsHtNVE8Fiy2kkZOr",
                                 initial_cypher: "match (c:Person)-[s{year:'2015'}]->(a:Ride)-[r]->(b:Location) return a,b,c,s,r"
                             }
                             var viz = new NeoVis.default(config);

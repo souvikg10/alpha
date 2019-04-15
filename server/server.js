@@ -18,6 +18,7 @@ import User from '../server/lib/utils/user';
 import Consent from '../server/lib/utils/consent';
 import dateFormat from 'dateformat';
 
+//routes
 import authRouter from '../routes/auth';
 import indexRouter from '../routes/index';
 import digitaltwinRouter from '../routes/digitaltwin';
@@ -28,6 +29,9 @@ import consentLedgerRouter from '../routes/consentLedger';
 import developerRouter from '../routes/developers';
 import stravaRouter from '../routes/strava';
 import facebookRouter from '../routes/facebook';
+import apiRouter from  '../api/index';
+
+
 
 
 /***********************************
@@ -150,7 +154,7 @@ function ensureAuthenticated(req, res, next) {
 }
 app.use(userInViews());
 app.all('*', function(req,res,next){
-  if (req.path === '/' || req.path === '/login' || req.path === '/callback' || req.path === '/error')
+  if (req.path === '/' || req.path === '/login' || req.path === '/callback' || req.path === '/error' || req.path.startsWith('/api/'))
     next();
   else
     ensureAuthenticated(req,res,next);  
@@ -171,6 +175,8 @@ app.use('/', consentLedgerRouter);
 app.use('/', developerRouter);
 app.use('/', stravaRouter);
 app.use('/', facebookRouter);
+app.use('/', apiRouter);
+
 
 /***********************************
  * Error handling
