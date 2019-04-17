@@ -56,7 +56,7 @@ function _connect(){
     );
  }
 
-    //User consent
+ //User consent
     function _defineUserConsents(){
     return  _connect().define('user_consents', {
         user_id: Sequelize.STRING,
@@ -64,6 +64,17 @@ function _connect(){
         type: Sequelize.STRING,
         consent: Sequelize.BOOLEAN,
         timestamp:{ type: Sequelize.DATE,defaultValue: Sequelize.NOW}
+    },{
+        timestamps: false
+        }
+    );
+} 
+
+ //microapp users
+ function _defineLinkMicroappsUsers(){
+    return  _connect().define('link_microapps_users', {
+        microapp_id: Sequelize.STRING,
+        user_id: Sequelize.STRING,
     },{
         timestamps: false
         }
@@ -85,5 +96,8 @@ var self=module.exports={
      },
      defineUserConsents:function(){
         return _defineUserConsents();
+     },
+     defineLinkMicroappsUsers:function(){
+        return _defineLinkMicroappsUsers();
      }
 };

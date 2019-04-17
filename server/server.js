@@ -23,6 +23,7 @@ import authRouter from '../routes/auth';
 import indexRouter from '../routes/index';
 import digitaltwinRouter from '../routes/digitaltwin';
 import dashboardRouter from '../routes/dashboard';
+import microappRouter from '../routes/microapp';
 import profileRouter from '../routes/profile';
 import connectorsRouter from '../routes/connectors';
 import consentLedgerRouter from '../routes/consentLedger';
@@ -55,7 +56,7 @@ var strategy = new Auth0Strategy(
   }
 );
 
-passport.use(strategy);
+passport.use("datavillage",strategy);
 
 // You can use this section to keep a smaller payload
 passport.serializeUser(function (user, done) {
@@ -169,6 +170,7 @@ app.use('/', authRouter);
 app.use('/', indexRouter);
 app.use('/', digitaltwinRouter);
 app.use('/', dashboardRouter);
+app.use('/', microappRouter);
 app.use('/', profileRouter);
 app.use('/', connectorsRouter);
 app.use('/', consentLedgerRouter);

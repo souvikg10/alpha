@@ -65,7 +65,5 @@ ALTER TABLE public.link_microapps_users
     OWNER to postgres;
 
 INSERT INTO organisations VALUES (1,'Datavillage');
-INSERT INTO microapps values ('G8kmDbjXpcXOIbJNqME8hYLMq895mFuQ','Neo','Explore your digital twin',true,1);
+INSERT INTO microapps values ('G8kmDbjXpcXOIbJNqME8hYLMq895mFuQ','Location','Discover your location history and predict your future',true,1);
 INSERT INTO link_microapps_users VALUES ('G8kmDbjXpcXOIbJNqME8hYLMq895mFuQ','facebook|10216409294199742');
-INSERT INTO microapps values ('bHP5QohhV9AP7qNz4P4m28LJZptrM00E','Location','Discover your location history and predict your future',true,1);
-INSERT INTO link_microapps_users VALUES ('bHP5QohhV9AP7qNz4P4m28LJZptrM00E','facebook|10216409294199742');

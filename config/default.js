@@ -15,6 +15,8 @@ module.exports = {
   securityLogoutCallbackURL:process.env.AUTH0_LOGOUT_CALLBACK_URL,
   securityManagementClientID:process.env.AUTH0_MANAGEMENT_CLIENT_ID,
   securityManagementClientSecret:process.env.AUTH0_MANAGEMENT_CLIENT_SECRET,
+  microappCallbackURL:process.env.AUTH0_MICROAPP_CALLBACK_URL,
+  microappG8kmDbjXpcXOIbJNqME8hYLMq895mFuQClientSecret:process.env.AUTH0_MICROAPP_G8kmDbjXpcXOIbJNqME8hYLMq895mFuQ_CLIENT_SECRET,
   databaseUser:process.env.DATABASE_USER,
   databasePassword:process.env.DATABASE_PASSWORD,
   databaseName:process.env.DATABASE_NAME,

@@ -30,7 +30,7 @@ function createUserInDb(user){
  ************************************/
 
 // Perform the login, after login Auth0 will redirect to callback
-router.get('/login', passport.authenticate('auth0', {
+router.get('/login', passport.authenticate('datavillage', {
   scope: 'openid email'
 }), function (req, res) {
   res.redirect('/');
@@ -38,7 +38,7 @@ router.get('/login', passport.authenticate('auth0', {
 
 // Perform the final stage of authentication and redirect to previously requested URL or '/auth/dashboard'
 router.get('/callback', function (req, res, next) {
-  passport.authenticate('auth0', function (err, user, info) {
+  passport.authenticate('datavillage', function (err, user, info) {
     if (info=="unauthorized") {  return res.redirect('/error'); }
     if (err) {  return next(err); }
     if (!user) { return res.redirect('/error'); }
