@@ -23,7 +23,8 @@ var strategy = new Auth0Strategy(
     domain: config.securityDomain,
     clientID: "G8kmDbjXpcXOIbJNqME8hYLMq895mFuQ",
     clientSecret: config.microappG8kmDbjXpcXOIbJNqME8hYLMq895mFuQClientSecret,
-    audience:"G8kmDbjXpcXOIbJNqME8hYLMq895mFuQ",
+    audience:"https://alpha.datavillage.me/api/v0",
+    scope:"offline_access",
     callbackURL:config.microappCallbackURL
   },
   function (accessToken, refreshToken, extraParams, profile, done) {
@@ -31,20 +32,26 @@ var strategy = new Auth0Strategy(
     // extraParams.id_token has the JSON Web Token
     // profile has all the information from the user
     //load auth0 user extra data in the user session
-     //console.log("ACCESS TOKEN MICROAPP" + extraParams.id_token);
+    console.log("ACCESS TOKEN MICROAPP" + accessToken);
   }
 );
+
 passport.use("G8kmDbjXpcXOIbJNqME8hYLMq895mFuQ",strategy);
+
 // Perform the login, after login Auth0 will redirect to callback
 router.get('/auth/microapp/activate', passport.authenticate('G8kmDbjXpcXOIbJNqME8hYLMq895mFuQ', {
-  scope: 'openid'
+  scope: 'offline_access'
 }), function (req, res) {
-  res.redirect('/');
+  res.redirect('/auth/dashboard');
 });
 
 // Perform the final stage of authentication and redirect to previously requested URL or '/auth/dashboard'
 router.get('/auth/microapp/callback', function (req, res, next) {
-  res.redirect('/auth/dashboard');
+  passport.authenticate('G8kmDbjXpcXOIbJNqME8hYLMq895mFuQ', function (err, user, info) {
+    if (info=="unauthorized") {  return res.redirect('/error'); }
+    if (err) {  return next(err); }
+    if (!user) { return res.redirect('/error'); }
+  })(req, res, next);
 });
 
 

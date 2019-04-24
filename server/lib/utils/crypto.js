@@ -24,4 +24,8 @@ function decrypt(text) {
   return decrypted.toString();
 }
 
-module.exports = { decrypt, encrypt };
+function hash256(value,key) {
+  return crypto.createHmac('sha256', key).update(value).digest('hex');
+}
+
+module.exports = { decrypt, encrypt,hash256 };

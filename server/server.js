@@ -13,6 +13,7 @@ import passport from 'passport';
 import Auth0Strategy from 'passport-auth0';
 import flash from 'connect-flash';
 import config from '../config/index';
+import crypto from './lib/utils/crypto';
 import userInViews from './lib/middleware/userInViews';
 import User from '../server/lib/utils/user';
 import Consent from '../server/lib/utils/consent';
@@ -51,7 +52,7 @@ var strategy = new Auth0Strategy(
     // profile has all the information from the user
     //load auth0 user extra data in the user session
      User.loadUserProfile(profile,function (profile) {
-     return done(null, profile);
+      return done(null, profile);
     });
   }
 );
@@ -165,6 +166,7 @@ app.all('*', function(req,res,next){
 app.use(bodyParser.json()); 
 // for parsing application/xwww-
 app.use(bodyParser.urlencoded({ extended: true })); 
+
 
 app.use('/', authRouter);
 app.use('/', indexRouter);

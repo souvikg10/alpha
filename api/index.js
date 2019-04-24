@@ -58,7 +58,7 @@ var jwtCheck = jwt({
         jwksRequestsPerMinute: 5,
         jwksUri: 'https://datavillage.eu.auth0.com/.well-known/jwks.json'
   }),
-  audience: 'G8kmDbjXpcXOIbJNqME8hYLMq895mFuQ',
+  audience: 'https://alpha.datavillage.me/api/v0',
   issuer: 'https://datavillage.eu.auth0.com/',
   algorithms: ['RS256']
   });
@@ -68,6 +68,19 @@ var jwtCheck = jwt({
       success: 'true',
       message: 'microapp G8kmDbjXpcXOIbJNqME8hYLMq895mFuQ launched',
     });
+  });
+
+
+  router.get('/api/v0/dialog/listen',(req, res) => {
+    const hubChallenge = req.query["hub.challenge"];
+    const hubMode = req.query["hub.mode"];
+    const verifyTokenMatches = (req.query["hub.verify_token"] === "datavillage");
+    if (hubMode && verifyTokenMatches) {
+    res.status(200).send(hubChallenge);
+    } else {
+    res.status(403).end();
+    }
+    };
   });
   
   module.exports = router;
