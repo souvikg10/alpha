@@ -76,11 +76,11 @@ var jwtCheck = jwt({
     const hubMode = req.query["hub.mode"];
     const verifyTokenMatches = (req.query["hub.verify_token"] === "datavillage");
     if (hubMode && verifyTokenMatches) {
-    res.status(200).send(hubChallenge);
+      res.status(200).send(hubChallenge);
     } else {
-    res.status(403).end();
+      res.status(403).end();
     }
-    };
-  });
+    }
+  );
   
   module.exports = router;
