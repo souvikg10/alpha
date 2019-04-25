@@ -32,7 +32,8 @@ var strategy = new Auth0Strategy(
     // extraParams.id_token has the JSON Web Token
     // profile has all the information from the user
     //load auth0 user extra data in the user session
-    console.log("ACCESS TOKEN MICROAPP" + accessToken);
+    //console.log(extraParams.id_token);
+   return done(null, profile);
   }
 );
 
@@ -47,10 +48,13 @@ router.get('/auth/microapp/activate', passport.authenticate('G8kmDbjXpcXOIbJNqME
 
 // Perform the final stage of authentication and redirect to previously requested URL or '/auth/dashboard'
 router.get('/auth/microapp/callback', function (req, res, next) {
-  passport.authenticate('G8kmDbjXpcXOIbJNqME8hYLMq895mFuQ', function (err, user, info) {
+  passport.authenticate('G8kmDbjXpcXOIbJNqME8hYLMq895mFuQ',{
+    scope: 'offline_access'
+  }, function (err, user, info) {
     if (info=="unauthorized") {  return res.redirect('/error'); }
     if (err) {  return next(err); }
     if (!user) { return res.redirect('/error'); }
+    res.redirect('/auth/dashboard');
   })(req, res, next);
 });
 
