@@ -35,6 +35,7 @@ var jwtCheck = jwt({
  ************************************/
 //status
   router.get('/api/v0/status', (req, res) => {
+    
     res.status(200).send({
       success: 'true',
       message: 'Status success',
@@ -45,7 +46,7 @@ var jwtCheck = jwt({
   var checkScopes = jwtAuthz(['read:microapp_users']);
   router.get('/api/v0/microapp/users', jwtCheck,checkScopes,(req, res) => {
     res.status(200).send([ {
-      "user_token" : "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6Ik9VTkZNVFpHTkVVeE5FSkJOMEUyTURZME56YzVRVGs0TTBZNE9EWXlSVGRHTlRCRE9USkdRdyJ9.eyJpc3MiOiJodHRwczovL2RhdGF2aWxsYWdlLmV1LmF1dGgwLmNvbS8iLCJzdWIiOiJmYWNlYm9va3wxMDIxNjQwOTI5NDE5OTc0MiIsImF1ZCI6Ikc4a21EYmpYcGNYT0liSk5xTUU4aFlMTXE4OTVtRnVRIiwiaWF0IjoxNTU1NTMyNDAyLCJleHAiOjE2MjU1Njg0MDJ9.oWNfy1aUKn5YVV4mdAJq7kLmyQc5ftEntR0l9GVZNJ4aHhcHBaOHoYryaw119buxofeUakCEyoUtALCbqmluIq3YDv5yGfDBvFqt8SnyfD-mumVotSaChbicqPaCzqWQC3ksn6sXQA4O8jvG7k9dS_diMoTYgsxxyGGGZ7W1iMjtGpGOe_b2NTa5x_aJP3VW2Pb6lvVlXwZOjchDqQXAgS_4Trl7JBi09rdYkIsAe-5Af4XuyOKxv2TsAMWkgLeTGQ_pX8VWiu8VS7FqDUP8-PVwq3h-Y75IFej4ZY6E6PSaWqJUUaC-I05qRFkR_RE-tR3fgwbzBX4jI-V2N8M8Zw",
+      "user_token" : "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6Ik9VTkZNVFpHTkVVeE5FSkJOMEUyTURZME56YzVRVGs0TTBZNE9EWXlSVGRHTlRCRE9USkdRdyJ9.eyJpc3MiOiJodHRwczovL2RhdGF2aWxsYWdlLmV1LmF1dGgwLmNvbS8iLCJzdWIiOiJmYWNlYm9va3wxMDIxNjQwOTI5NDE5OTc0MiIsImF1ZCI6Ikc4a21EYmpYcGNYT0liSk5xTUU4aFlMTXE4OTVtRnVRIiwiaWF0IjoxNTU2Mjc3OTg0LCJleHAiOjE2MjYzMTM5ODR9.owNAs1HSl_Hm6JcgZ2xGX7dxtVqGHto2SZeBh6pfcsM6E8l1nEtCgOUMro3E1dkadIbsHY_zEjxBfvhqDb4PNm_L2Pd6BavquMKUksjoSPnwaqdIWW_m78QbyWqrKNGKv-Yfw9tartrTLVyRQsaa_JuN7aOW_F6Pbe2rvsVclIs5cGXs5fa16guqPoayf0HeJ2fL676EnnI2AVxVkHF7igsQHSduYQyz6OeGFjTe3EmJQVa1SsRL1JblzyzvdkhSDUshUxjALErxDn_w_mOxMcN31WmDuSOAbsuTz3UTBU_kWubOX4bW1oSQcrzA7AfPch7ww4-IoN4JyKLs09e62A",
       "user_id" : "facebook|10216409294199742"
     } ]);
   });
@@ -58,7 +59,7 @@ var jwtCheck = jwt({
         jwksRequestsPerMinute: 5,
         jwksUri: 'https://datavillage.eu.auth0.com/.well-known/jwks.json'
   }),
-  audience: 'https://alpha.datavillage.me/api/v0',
+  audience: 'G8kmDbjXpcXOIbJNqME8hYLMq895mFuQ',
   issuer: 'https://datavillage.eu.auth0.com/',
   algorithms: ['RS256']
   });
@@ -72,7 +73,7 @@ var jwtCheck = jwt({
 
   //expose graph endpoint
   checkScopes = jwtAuthz(['read:commutes']);
-  router.get('/api/v0/activity/search',(req, res) => {
+  router.get('/api/v0/activity/search',jwtCheck,(req, res) => {
     res.status(200).send([  
       {  
          "name":"ACTIVITY1",
