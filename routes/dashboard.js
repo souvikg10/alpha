@@ -37,10 +37,10 @@ router.get('/auth/dashboard', function (req, res, next) {
  */
 function renderDashboard(req,res){
   res.render('dashboard', {
-    title: 'Dashboard',
+    title: 'Microapps',
     layout: 'dashboard',
     dashboard:'active',
-    user:{id:User.getUserId(req.user),email:User.getUserEmail(req.user)}
+    user:{id:User.getUserId(req.user),email:User.getUserEmail(req.user),picture:User.getPicture(req.user)}
   });
 }
 

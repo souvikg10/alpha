@@ -19,7 +19,6 @@
     "dateformat": "^3.0.3",
     "debug": "~2.6.9",
     "dotenv": "^2.0.0",
-    "dropbox-v2-api": "^2.1.20",
     "express": "^4.13.4",
     "express-handlebars": "^3.0.0",
     "express-session": "^1.2.1",
